@@ -1,13 +1,16 @@
 <div align="center">
 
   # 📈 OmniMarketX
-  ### *Social Prediction Market & Simulated Trading Foundry*
 
+  **A frontend redesign and product enhancement of OmniMarketX**, a social prediction-market platform — built for the OmniMarketX Future Foundry Internship Evaluation.
+
+  [![Live Demo](https://img.shields.io/badge/Live_Demo-omnimarket--x.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://omnimarket-x.vercel.app/)
+  [![GitHub Repo](https://img.shields.io/badge/GitHub-AyushKumar--alt%2FOmnimarketX-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AyushKumar-alt/OmnimarketX)
   [![Next.js](https://img.shields.io/badge/Next.js-14.2-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
   [![Zustand](https://img.shields.io/badge/State-Zustand-764ABC?style=for-the-badge)](https://github.com/pmndrs/zustand)
-  [![Build Status](https://img.shields.io/badge/Build-Passing-10B981?style=for-the-badge)](https://github.com/)
+  [![Build Status](https://img.shields.io/badge/Build-Passing-10B981?style=for-the-badge)](https://github.com/AyushKumar-alt/OmnimarketX)
 
   <br />
 
@@ -17,67 +20,95 @@
 
 ---
 
-## 🌟 Product Thesis
+## Overview
 
-OmniMarketX is designed to transform the prediction-market experience to be:
+No codebase was provided for this evaluation — candidates were asked to use the live OmniMarketX product as a reference and demonstrate improvement, not reproduce the platform. This project is therefore a **focused vertical slice**, not a clone: it rebuilds the core discover → trade → track loop with a specific product thesis applied throughout, rather than attempting every page of the original.
 
-> **Easier to understand, easier to navigate, and easier to trust**
+**Product thesis:** *Make the prediction-market experience easier to understand, easier to navigate, and easier to trust — while preserving OmniMarketX's strongest differentiator, the connection between social discussion and prediction.*
 
-while preserving OmniMarketX's strongest differentiator: **SOCIAL + PREDICTION**.
+The core journey the product is built around:
 
-### Core User Journey
-
-```mermaid
-graph LR
-    A[🔍 Discover] --> B[📖 Understand]
-    B --> C[📊 Evaluate]
-    C --> D[📈 Predict]
-    D --> E[💬 Discuss]
-    E --> A
-```
-
-1. **Discover** — Explore trending, liquid, and unseeded markets with real-time filtering and search.
-2. **Understand** — Inspect verified resolution criteria, primary source links, and clear data quality flags.
-3. **Evaluate** — Analyze interactive historical probability charts and trader consensus metrics.
-4. **Predict** — Execute simulated demo trades (**BUY YES / BUY NO**) with instant balance updates.
-5. **Discuss** — Share reasoning in community threads tagged with prediction badges and held shares.
+| Stage | User need | Where it lives |
+|---|---|---|
+| **Discover** | Find something worth predicting | Home, Markets, Trending |
+| **Understand** | Know what the market is actually asking | Market Detail |
+| **Evaluate** | Decide if it's worth a position | Market data + AI Market Analyst |
+| **Predict** | Take a YES/NO position | Demo Trading |
+| **Track** | Monitor outcomes | Portfolio |
+| **Discuss** | Compare perspectives | Social |
 
 ---
 
-## 🛡️ Key UI & Trust Innovations
+## The Problem
 
-### 1. Data Quality & Unseeded Market Flags
-* **Problem**: Standard platforms display zero-activity markets with 50% odds identically to active markets, misleading users into inferring 50/50 trader consensus.
-* **Solution**: OmniMarketX explicitly flags all 0-volume, 0-trader markets with **Unseeded Badges** and warning banners explaining that 50% reflects an unpriced initial state rather than market consensus.
+A market card can show `68% YES · $485K volume · 3.2K traders` without answering the questions that actually matter: what exactly resolves this market, what source decides it, and — critically — **is that probability backed by real activity, or is it just where the market opened?**
 
-### 2. Actionable Empty States
-* **Problem**: Traditional dashboard empty states act as dead ends without next steps.
-* **Solution**: Every view (search, filter, empty portfolio, watchlist) includes primary CTAs (e.g. *"Explore Listed Markets"*, *"Reset All Filters"*).
+That last question turned out to be the central design problem. A market with zero trades still displays a confident-looking 50% line, visually indistinguishable from a market with thousands of dollars in volume behind it. Left unaddressed, this misrepresents thin or empty markets as having real consensus.
 
-### 3. Persistent Real / Demo Mode
-* Single source of truth top banner and header toggle displaying **`$10,000.00` Demo Cash** balance vs **Real Mode Preview**.
-
-### 4. Contextual Side Content
-* Replaced repetitive generic hashtag widgets with dynamic liquidity indicators and resolution safeguard panels.
+This became the throughline for the whole redesign: **trust and clarity are treated as product features, not just visual polish.**
 
 ---
 
-## 📁 Detailed Project Structure
+## My Testing vs. Reported Feedback
+
+Two findings shaped this project, and I want to be precise about their sources:
+
+- **My own testing:** During the first-stage evaluation, I asked the platform's AI support *"Tell me about this platform."* It failed to answer and defaulted to offering human support — and repeated the same failure on a follow-up. This is the one product gap I verified myself, and it's what the Support Assistant in this build directly addresses.
+- **Reported by other candidates, treated as hypotheses:** Issues like zero-volume markets displaying misleadingly confident probabilities, inconsistent market-definition text, and unclear first-time-user onboarding. I couldn't independently verify these against the live production backend, but I judged them credible and design-relevant, so I built defensive UX patterns for them (unseeded-market flagging, clearer resolution criteria, guided empty states) rather than presenting them as bugs I personally found.
+
+---
+
+## What Was Built
+
+### Discovery & Trust
+Home, Markets, and Trending share one data set and one trust rule: **a market with 0 volume and 0 traders is explicitly labeled "Unseeded — starting price, not consensus,"** visually distinct from markets with real activity. Unseeded markets are also excluded from Trending's activity ranking, so an inactive market can't appear to be gaining attention it hasn't earned. Market Discovery supports category filters, search, sort (volume/traders/newest/expiring), and a "hide unseeded" toggle.
+
+### Market Detail
+The hero screen of the product. Shows the market question, YES/NO pricing, a probability history chart (Recharts), volume, trader count, deadline, and — surfaced directly rather than hidden behind a click — the exact **resolution criteria and resolution source**.
+
+### AI Market Analyst
+A deterministic, market-grounded analysis panel (Snapshot, Key Factors, Bull Case, Bear Case, What Could Change the Odds, Resolution Risk) built entirely from the market's own structured data — no live API dependency, so it's fast, predictable, and never invents external information it can't back up. For unseeded markets, it explicitly explains why the 50% starting price shouldn't be read as an established view.
+
+### Demo Trading & Portfolio
+Simulated YES/NO trading with fee breakdown, share calculation, and balance validation (rejects zero, negative, non-numeric, and over-balance amounts). Positions and trade history persist locally via Zustand, so portfolio state survives navigation and refresh.
+
+### Social
+A lightweight, market-linked feed — not a full social network. Posts connect directly to the markets they discuss, preserving OmniMarketX's core loop of *discussion leading back to prediction*.
+
+### Support Assistant
+The direct fix for the gap I found in testing. A small, honestly-labeled **local/demo assistant** (deterministic keyword matching, no LLM API, no backend) that reliably answers platform questions — including the exact test case that failed in the original product: *"Tell me about this platform."* It's deliberately kept separate from the AI Market Analyst, which serves a different purpose (analyzing a specific market vs. explaining the platform). Unknown questions get an honest fallback with example prompts rather than a hallucinated answer.
+
+### Platform Quality
+Reorganized navigation grouped by intent (Discover / Participate / Your Activity / System, not a flat list); persistent dark/light theme; a lightweight Settings page (demo profile, appearance, no real auth); responsive layout checked at 375px, 768px, 1024px, and 1440px; and deliberate empty/error states throughout (invalid market ID, empty filter results, unseeded markets, unknown assistant questions) so no screen is a dead end.
+
+---
+
+## Key Product Decisions
+
+* **Trust is a feature, not a disclaimer.** Resolution criteria, resolution source, and activity-based flagging are surfaced in the main flow, not buried in a tooltip.
+* **50% is not always 50% consensus.** The single most important UX rule in this build: a market's starting price and a market's *earned* signal are visually and textually distinguished everywhere they appear.
+* **The AI explains, it doesn't perform.** Both AI-oriented features are grounded in the app's own data rather than optimized to sound impressive. Neither claims live external knowledge it doesn't have.
+* **Social supports discovery, it isn't a separate app.** Every market-linked post is a path back to a market.
+* **Every feature earns its place.** The scope was deliberately kept to the core loop rather than maximizing page count — this is a vertical slice, not a platform clone.
+
+---
+
+## Architecture & Project Structure
 
 ```text
 OmnimarketX/
 ├── public/
-│   └── banner.jpg                    # High-resolution hero banner asset
+│   └── banner.jpg                    # High-resolution visual banner asset
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx                # App root layout & SEO metadata
-│   │   ├── globals.css               # Custom dark fintech theme & scrollbars
+│   │   ├── globals.css               # Custom dark fintech theme & CSS directives
 │   │   ├── page.tsx                  # Market Discovery & Journey Stepper
 │   │   ├── portfolio/
-│   │   │   └── page.tsx              # Portfolio Dashboard (Positions & Fills)
+│   │   │   └── page.tsx              # Portfolio Dashboard (Positions & Trade Fills)
 │   │   └── market/
 │   │       └── [id]/
-│   │           └── page.tsx          # Hero Market Detail & Trading Panel
+│   │           └── page.tsx          # Hero Market Detail & Simulated Trading Panel
 │   ├── components/
 │   │   ├── layout/
 │   │   │   └── Shell.tsx             # Global shell, responsive header, sidebar & drawer
@@ -88,78 +119,84 @@ OmnimarketX/
 │   │   ├── trust/
 │   │   │   └── TrustBadge.tsx        # Verified, High Activity & Unseeded badges
 │   │   └── ui/
-│   │       └── EmptyState.tsx        # Reusable component with primary CTAs
+│   │       └── EmptyState.tsx        # Reusable empty state component with CTAs
 │   ├── data/
 │   │   └── mockMarkets.ts            # Centralized, internally consistent 2026/2027 markets
 │   ├── store/
 │   │   └── useMarketStore.ts         # Zustand state engine (Demo cash, positions, trades)
 │   └── types/
-│       └── market.ts                 # Strongly-typed data contracts
+│       └── market.ts                 # Shared TypeScript contracts
 ├── package.json                      # Dependencies & NPM scripts
 ├── tsconfig.json                     # TypeScript configuration & path aliases
-├── tailwind.config.ts                # Tailwind CSS theme extensions
+├── tailwind.config.ts                # Tailwind CSS theme configuration
 ├── next.config.mjs                   # Next.js configuration
-└── README.md                         # Project documentation
+└── README.md                         # Product documentation
 ```
 
 ---
 
-## ⚡ Getting Started
+## Tech Stack
 
-### Prerequisites
-* **Node.js**: `v18.0.0` or higher
-* **NPM**: `v9.0.0` or higher
-
-### Installation
-
-1. Clone the repository and navigate to the directory:
-   ```bash
-   cd OmnimarketX
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+| Technology | Purpose |
+|---|---|
+| **Framework** | Next.js 14 (App Router) |
+| **Language** | TypeScript |
+| **Styling** | Tailwind CSS |
+| **Charts** | Recharts |
+| **Icons** | Lucide React |
+| **State** | Zustand + `localStorage` |
+| **Deployment** | Vercel (`https://omnimarket-x.vercel.app/`) |
 
 ---
 
-## 🛠️ Verification & Build Commands
+## Data & AI Approach
+
+All market, social, and leaderboard data is explicit mock data — no production backend was provided, and this project doesn't pretend otherwise. Demo trading state and theme preference persist locally so the experience survives navigation and refresh.
+
+Both AI-oriented features are **deterministic and local**, by design:
+- **AI Market Analyst** — built from structured market data already in the app. No API key, no network dependency, no risk of a rate limit or outage breaking the feature during evaluation.
+- **Support Assistant** — local keyword-matched responses, clearly labeled as a demo assistant rather than a live AI service. This was a deliberate choice over wiring a real LLM: a flaky third-party API failing during review would recreate the exact problem this feature exists to fix.
+
+---
+
+## Testing & Validation
 
 ```bash
-# Type check TypeScript codebase
-npx tsc --noEmit
-
-# Run Next.js production build
-npm run build
-
-# Start production server
-npm run start
+npx tsc --noEmit   # 0 errors
+npm run build      # production build passes
 ```
 
----
-
-## 📊 Market Dataset Summary
-
-The platform comes pre-loaded with internally consistent 2026/2027 prediction markets:
-* **OpenAI Next Flagship Model** (Tech · 68% YES · $485k Vol)
-* **NVIDIA Consumer GPU Architecture in 2026** (Tech · 74% YES · $320k Vol)
-* **Bitcoin Exceed $150,000 before Jan 2027** (Crypto · 58% YES · $1.25M Vol)
-* **India GDP Growth > 7.0% in FY2026-27** (Finance · 62% YES · $210k Vol)
-* **US Fed Rate Below 3.75% before Dec 2026** (Finance · 41% YES · $640k Vol)
-* **SpaceX Starship Propellant Transfer in 2026** (Tech · 82% YES · $410k Vol)
-* **IBM 1,000 Logical Qubit System** (*Unseeded 0-Vol Trust Example*)
-* **Commonwealth Fusion Net Power Grid Delivery** (*Unseeded 0-Vol Trust Example*)
+**Manually verified:** YES and NO trades; zero, negative, non-numeric, and over-balance trade inputs; invalid market routes (`Market not found` rather than a silent fallback); unseeded market display; Support Assistant against its core question set including the original failing case; empty states for filters and search; dark/light theme persistence; layout at 375px, 768px, 1024px, and 1440px.
 
 ---
 
-<div align="center">
-  <sub>Built for the OmniMarketX Future Foundry Evaluation</sub>
-</div>
+## Known Limitations
+
+This is an intentionally frontend-focused vertical slice. It does not implement: real authentication (no OAuth/session management — Settings shows a demo profile only), a production backend (no real settlement, real-time updates, or server-side storage), or live external data (both AI features are local/deterministic rather than connected to a real LLM or live market feed). These were out of scope for a frontend evaluation with no backend provided, and are the natural next steps if this moved beyond the evaluation environment — alongside real-time price/social updates, a persistent social system, and usage analytics to validate the UX decisions made here against actual behavior.
+
+---
+
+## Getting Started
+
+```bash
+git clone https://github.com/AyushKumar-alt/OmnimarketX.git
+cd omnimarketx
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## Live Deployment & Screenshots
+
+* **Live Web Application**: [https://omnimarket-x.vercel.app/](https://omnimarket-x.vercel.app/)
+
+*(Screenshots: Home/Discovery, Market Detail with resolution criteria, AI Market Analyst, an unseeded market showing the trust flag, Support Assistant answering "Tell me about this platform," Portfolio, Light mode.)*
+
+---
+
+## Conclusion
+
+The goal of this project was not to add the most features or recreate OmniMarketX in full — it was to answer one question well: *what does a user need to understand before they can trust a prediction enough to trade on it?* That question shaped market discovery, market detail, the AI Analyst, demo trading, and the Support Assistant alike. Where I found a real gap through my own testing (AI support failing basic questions), I built a working, honestly-labeled fix rather than a more impressive-looking but riskier one — a bias toward reliability that runs through the rest of the build as well.
