@@ -2,7 +2,7 @@
 
   # 📈 OmniMarketX
 
-  **A frontend redesign and product enhancement of OmniMarketX**, a social prediction-market platform — built for the OmniMarketX Future Foundry Internship Evaluation.
+  **A redesign and product enhancement of OmniMarketX**, a social prediction-market platform — built for the OmniMarketX Future Foundry.
 
   [![Live Demo](https://img.shields.io/badge/Live_Demo-omnimarket--x.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://omnimarket-x.vercel.app/)
   [![GitHub Repo](https://img.shields.io/badge/GitHub-AyushKumar--alt%2FOmnimarketX-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AyushKumar-alt/OmnimarketX)
