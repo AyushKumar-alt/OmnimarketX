@@ -295,6 +295,10 @@ html.light .bg-\[\#0B0F19\].border-\[\#2A3548\] { background-color: #FFFFFF !imp
   100% { background-position: 200% 0; }
 }
 
+/* Dark mode contrast — lift muted grays to WCAG AA on dark surfaces */
+html.dark .text-gray-500 { color: #9CA3AF !important; }
+html.dark .placeholder\:text-gray-500::placeholder { color: #9CA3AF !important; }
+
 /* Selection — keep text visible when dragging to copy */
 ::selection {
   background-color: rgba(99, 102, 241, 0.35);

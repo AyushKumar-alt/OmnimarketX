@@ -273,7 +273,7 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
                     );
                     const cls = `w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all ${
                       item.active
-                        ? "bg-indigo-600/15 text-indigo-200 border border-indigo-500/30 font-semibold"
+                        ? "bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-600/20 font-semibold"
                         : "text-gray-400 hover:text-gray-100 hover:bg-[#111827] border border-transparent"
                     }`;
                     return item.href ? (
@@ -375,7 +375,7 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
                             onClick={() => setMobileMenuOpen(false)}
                             aria-current={item.active ? "page" : undefined}
                             className={`flex items-center justify-between px-3 py-3 rounded-xl text-sm font-medium transition-colors min-h-[48px] ${
-                              item.active ? "text-indigo-200 bg-indigo-600/15 border border-indigo-500/30" : "text-gray-300 hover:bg-[#111827] border border-transparent"
+                              item.active ? "bg-indigo-600 text-white border-indigo-600 shadow-md" : "text-gray-300 hover:bg-[#111827] border border-transparent"
                             }`}
                           >
                             <span className="flex items-center gap-3">
@@ -392,7 +392,7 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
                             onClick={item.onClick}
                             aria-current={item.active ? "page" : undefined}
                             className={`w-full flex items-center justify-between px-3 py-3 rounded-xl text-sm font-medium transition-colors min-h-[48px] ${
-                              item.active ? "text-indigo-200 bg-indigo-600/15 border border-indigo-500/30" : "text-gray-300 hover:bg-[#111827] border border-transparent"
+                              item.active ? "bg-indigo-600 text-white border-indigo-600 shadow-md" : "text-gray-300 hover:bg-[#111827] border border-transparent"
                             }`}
                           >
                             <span className="flex items-center gap-3">
@@ -443,13 +443,13 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
                 href={item.href}
                 aria-current={item.active ? "page" : undefined}
                 className={`flex flex-col items-center gap-0.5 py-1.5 rounded-xl text-[10px] sm:text-[11px] font-semibold min-h-[52px] justify-center truncate ${
-                  item.active ? "text-indigo-200 bg-indigo-600/15" : "text-gray-400"
+                  item.active ? "bg-indigo-600 text-white shadow-sm" : "text-gray-400"
                 }`}
               >
                 <span className="relative">
                   <item.icon className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                   {item.count !== undefined && item.count > 0 && (
-                    <span className="absolute -top-1.5 -right-2.5 min-w-[14px] h-3.5 sm:min-w-[16px] sm:h-4 px-0.5 sm:px-1 rounded-full bg-indigo-500 text-white text-[8px] sm:text-[9px] font-bold flex items-center justify-center omx-num">
+                    <span className="absolute -top-1.5 -right-2.5 min-w-[14px] h-3.5 sm:min-w-[16px] sm:h-4 px-0.5 sm:px-1 rounded-full bg-white text-indigo-600 text-[8px] sm:text-[9px] font-bold flex items-center justify-center omx-num border border-indigo-200">
                       {item.count}
                     </span>
                   )}
@@ -462,7 +462,7 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
                 onClick={item.onClick}
                 aria-current={item.active ? "page" : undefined}
                 className={`flex flex-col items-center gap-0.5 py-1.5 rounded-xl text-[10px] sm:text-[11px] font-semibold min-h-[52px] justify-center truncate ${
-                  item.active ? "text-indigo-200 bg-indigo-600/15" : "text-gray-400"
+                  item.active ? "bg-indigo-600 text-white shadow-sm" : "text-gray-400"
                 }`}
               >
                 <span className="relative">

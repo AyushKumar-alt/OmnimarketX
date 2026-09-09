@@ -33,7 +33,6 @@ export const MarketFilters: React.FC = () => {
     <div className="space-y-3">
       {/* Category pills */}
       <div
-        role="tablist"
         aria-label="Filter markets by category"
         className="scroll-x flex items-center gap-2 pb-1 scrollbar-none -mx-1 px-1"
       >
@@ -42,8 +41,7 @@ export const MarketFilters: React.FC = () => {
           return (
             <button
               key={cat.id}
-              role="tab"
-              aria-selected={isActive}
+              aria-pressed={isActive}
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-3.5 py-2 rounded-xl text-[13px] font-semibold whitespace-nowrap transition-colors min-h-[40px] border ${
                 isActive

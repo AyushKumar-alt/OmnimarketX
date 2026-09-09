@@ -209,7 +209,6 @@ export default function TrendingPage() {
 
         {/* Category filters */}
         <div
-          role="tablist"
           aria-label="Filter trending by category"
           className="scroll-x flex items-center gap-2 pb-1 scrollbar-none -mx-1 px-1"
         >
@@ -218,8 +217,7 @@ export default function TrendingPage() {
             return (
               <button
                 key={cat.id}
-                role="tab"
-                aria-selected={active}
+                aria-pressed={active}
                 onClick={() => setCategory(cat.id)}
                 className={`px-3.5 py-2 rounded-xl text-[13px] font-semibold whitespace-nowrap transition-colors min-h-[40px] border ${
                   active ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/25 border-indigo-600" : "bg-[#111827] text-gray-400 hover:text-gray-100 border-[#1F2937] hover:border-gray-600"

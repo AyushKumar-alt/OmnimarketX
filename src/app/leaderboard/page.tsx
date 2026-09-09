@@ -146,15 +146,14 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Time filters */}
-        <div role="tablist" aria-label="Leaderboard time range" className="flex items-center gap-2 p-1 rounded-xl bg-[#111827] border border-[#1F2937] w-fit">
+        <div aria-label="Leaderboard time range" className="flex items-center gap-2 p-1 rounded-xl bg-[#111827] border border-[#1F2937] w-fit">
           {(["weekly", "monthly", "all"] as TimeFilter[]).map((t) => {
             const active = filter === t;
             const label = t === "weekly" ? "Weekly" : t === "monthly" ? "Monthly" : "All Time";
             return (
               <button
                 key={t}
-                role="tab"
-                aria-selected={active}
+                aria-pressed={active}
                 onClick={() => setFilter(t)}
                 className={`px-3.5 py-1.5 rounded-lg text-[13px] font-semibold transition-colors min-h-[36px] inline-flex items-center gap-1.5 ${
                   active ? "bg-indigo-600 text-white shadow" : "text-gray-400 hover:text-gray-200"
