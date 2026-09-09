@@ -282,6 +282,19 @@ html.light section[aria-labelledby="discover-heading"] .flex.items-center.gap-x-
 /* Chart tooltip */
 html.light .bg-\[\#0B0F19\].border-\[\#2A3548\] { background-color: #FFFFFF !important; border-color: #E2E8F0 !important; }
 
+/* Floating banner animation — OmnimarketX */
+@keyframes omx-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+.animate-omx-float {
+  animation: omx-float 3s ease-in-out infinite;
+}
+@keyframes omx-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
 /* Selection — keep text visible when dragging to copy */
 ::selection {
   background-color: rgba(99, 102, 241, 0.35);

@@ -32,6 +32,16 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[#090D16] text-gray-100 min-h-screen font-sans antialiased">
+        {/* Floating OmnimarketX banner */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed top-3 left-1/2 -translate-x-1/2 z-[80] hidden sm:flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 text-white text-xs font-extrabold tracking-[0.18em] uppercase shadow-xl shadow-indigo-600/25 border border-white/15 animate-omx-float"
+          style={{ backgroundSize: "200% 100%" }}
+        >
+          <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+          OmnimarketX
+          <span className="w-2 h-2 rounded-full bg-white/60" />
+        </div>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-xl focus:bg-indigo-600 focus:text-white focus:text-sm focus:font-semibold"
